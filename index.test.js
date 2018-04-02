@@ -13,6 +13,14 @@ const cases = [
   [
     ['counting event', { event: 'one', count: 1 }],
     'counting event | event: one | count: 1'
+  ],
+  [
+    ['counting event', { event: 'one', count: 1 }, 'event'],
+    '[event] counting event | event: one | count: 1'
+  ],
+  [
+    ['counting event', { event: 'one', count: 1 }, 'event', 'count'],
+    '[event|count] counting event | event: one | count: 1'
   ]
 ]
 

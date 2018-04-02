@@ -4,7 +4,7 @@ function ratlog (stream, ...initTags) {
   function log (message, fields = {}, ...callTags) {
     const tags = [...initTagsAsStrings, ...callTags.map(t => toString(t))]
 
-    const tagString = tags.length ? `[${tags.join(' | ')}] ` : ''
+    const tagString = tags.length ? `[${tags.join('|')}] ` : ''
     const messageString = toString(message)
     const fieldString = Object.entries(fields)
       .map(([k, v]) => `| ${toString(k)}: ${toString(v)}`)
