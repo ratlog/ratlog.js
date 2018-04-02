@@ -1,0 +1,33 @@
+{
+  "name": "ratlog",
+  "version": "0.1.0",
+  "description": "application logging for humans and machines",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && ava",
+    "test:watch": "ava --watch",
+    "lint": "standard",
+		"lint:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ratlog/ratlog.js.git"
+  },
+  "keywords": [
+    "logging",
+    "logs",
+    "log",
+    "node",
+		"rats"
+  ],
+  "author": "Jorin Vogel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ratlog/ratlog.js/issues"
+  },
+  "homepage": "https://github.com/ratlog/ratlog.js#readme",
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "standard": "^11.0.1"
+  }
+}
