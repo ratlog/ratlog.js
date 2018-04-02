@@ -9,6 +9,9 @@
     "lint": "standard",
 		"lint:fix": "standard --fix"
   },
+	"engines": {
+		"node": ">=8.0.0"
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ratlog/ratlog.js.git"
