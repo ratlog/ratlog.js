@@ -5,9 +5,7 @@ const main = () => {
 
   log('app starting')
 
-  const counterLog = log.tag('counter')
-
-  const counter = startCounter({
+  startCounter({
     max: 2,
     log: log.tag('counter'),
     done: () => {
@@ -30,7 +28,7 @@ const startCounter = ({ max = 0, interval = 3000, log, done }) => {
 
     log('counting', { count: x }, 'event')
 
-    setTimeout(count, interval, x+1)
+    setTimeout(count, interval, x + 1)
   }
   count()
 

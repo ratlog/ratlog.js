@@ -1,5 +1,4 @@
 const ratlog = require('../index')
-
 const main = () => {
   const log = ratlog(process.stdout)
 
@@ -7,13 +6,13 @@ const main = () => {
 
   const counterLog = log.tag('counter')
 
-  const counter = startCounter({
+  startCounter({
     max: 2,
     log: (msg, fields = {}, ...tags) => {
       if (tags.includes('event')) {
         countMetric(fields.count)
       }
-      counterLog(msg, fields, tags...)
+      counterLog(msg, fields, ...tags)
     },
     done: () => {
       log('app shutting down')
@@ -35,12 +34,15 @@ const startCounter = ({ max = 0, interval = 3000, log, done }) => {
 
     log('counting', { count: x }, 'event')
 
-    setTimeout(count, interval, x+1)
+    setTimeout(count, interval, x + 1)
   }
   count()
 
   log('started')
 }
 
-main()
+const countMetric = () => {
+  // count metric here...
+}
 
+main()
