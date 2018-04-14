@@ -1,20 +1,23 @@
 function ratlog (stream, ...initTags) {
-  const initTagsAsStrings = initTags.map(t => formatTag(t))
-
   function log (message, fields, ...callTags) {
-    const tags = [...initTagsAsStrings, ...callTags.map(t => formatTag(t))]
+    const formattedTags = [...initTags, ...callTags].map(t => formatTag(t))
 
-    const tagString = tags.length ? `[${tags.join('|')}] ` : ''
+    const tagString = formattedTags.length ? `[${formattedTags.join('|')}] ` : ''
+
     const messageString = formatMessage(message)
-    const fieldString = Object.entries(fields || {})
-      .map(([k, v]) => `| ${formatField(k)}: ${formatField(v)}`)
-      .join(' ')
 
-    stream.write(tagString + messageString + (fieldString ? ' ' : '') + fieldString + '\n')
+    const fieldString = Object.entries(fields || {})
+      .map(([k, v]) => {
+        const value = formatField(v)
+        return ` | ${formatField(k)}${value ? ': ' + value : ''}`
+      })
+      .join('')
+
+    stream.write(tagString + messageString + fieldString + '\n')
   }
 
   log.tag = function tag (...additionalTags) {
-    return ratlog(stream, [...initTagsAsStrings, ...additionalTags])
+    return ratlog(stream, ...[...initTags, ...additionalTags])
   }
 
   return log
@@ -25,7 +28,7 @@ function formatTag (val) {
 }
 
 function formatMessage (val) {
-  return toString(val).replace(/[|]]/g, '\\$&')
+  return toString(val).replace(/[|[]/g, '\\$&')
 }
 
 function formatField (val) {
@@ -36,6 +39,11 @@ function toString (val) {
   if (typeof val === 'string') {
     return val
   }
+
+  if (val == null) {
+    return ''
+  }
+
   try {
     return val.toString()
   } catch (e) {

@@ -1,41 +1,50 @@
 import test from 'ava'
-import cases from '../ratlog.github.io/ratloc.spec.json'
+import testsuite from '../ratlog.github.io/ratlog.testsuite.json'
 import ratlog from './index'
 
-const tagCases = cases.filter(({input}) => input.initialTags)
+const cases = testsuite.generic
 
 test(`logging all ${cases.length} cases correctly`, t => {
   t.plan(cases.length)
 
-  cases.forEach(({input, output}) => {
+  cases.forEach(({data, log}) => {
     const write = line => {
-      t.is(line, output + '\n')
+      t.is(line, log, 'Input:\n\n' + JSON.stringify(data, null, 2))
     }
-    const log = ratlog({write})
-    log(input.message, input.fields, ...(input.tags || []))
+    const l = ratlog({write})
+    l(data.message, data.fields, ...(data.tags || []))
   })
 })
 
-test(`${tagCases.length} cases for tagging on init`, t => {
-  t.plan(tagCases.length)
+test('with initial tag', t => {
+  t.plan(1)
 
-  tagCases.forEach(({input, output}) => {
-    const write = line => {
-      t.is(line, output + '\n')
-    }
-    const log = ratlog({write}, 'tag')
-    log(input.message, input.fields, ...(input.tags || []))
-  })
+  const write = line => {
+    t.is(line, '[tag|x|y] msg | a: 1 | b: 2\n')
+  }
+
+  const l = ratlog({write}, 'tag')
+  l('msg', { a: 1, b: 2 }, 'x', 'y')
 })
 
-test(`${tagCases.length} cases for tagging with .tag()`, t => {
-  t.plan(tagCases.length)
+test('with .tag()', t => {
+  t.plan(1)
 
-  tagCases.forEach(({input, output}) => {
-    const write = line => {
-      t.is(line, output + '\n')
-    }
-    const log = ratlog({write}).tag('tag')
-    log(input.message, input.fields, ...(input.tags || []))
-  })
+  const write = line => {
+    t.is(line, '[a|b|x|y] msg | a: 1 | b: 2\n')
+  }
+
+  const l = ratlog({write}).tag('a', 'b')
+  l('msg', { a: 1, b: 2 }, 'x', 'y')
+})
+
+test('with .tag().tag()', t => {
+  t.plan(1)
+
+  const write = line => {
+    t.is(line, '[1|2|3|x|y] msg | a: 1 | b: 2\n')
+  }
+
+  const l = ratlog({write}).tag(1).tag('2', 3)
+  l('msg', { a: 1, b: 2 }, 'x', 'y')
 })
