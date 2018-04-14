@@ -7,11 +7,11 @@
     "test": "standard && ava",
     "test:watch": "ava --watch",
     "lint": "standard",
-		"lint:fix": "standard --fix"
+    "lint:fix": "standard --fix"
   },
-	"engines": {
-		"node": ">=8.0.0"
-	},
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ratlog/ratlog.js.git"
@@ -21,7 +21,7 @@
     "logs",
     "log",
     "node",
-		"rats"
+    "rats"
   ],
   "author": "Jorin Vogel",
   "license": "MIT",
@@ -31,6 +31,7 @@
   "homepage": "https://github.com/ratlog/ratlog.js#readme",
   "devDependencies": {
     "ava": "^0.25.0",
+    "pump": "^3.0.0",
     "standard": "^11.0.1"
   }
 }

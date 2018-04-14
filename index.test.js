@@ -1,13 +1,40 @@
+import https from 'https'
+import fs from 'fs'
+import path from 'path'
+import pump from 'pump'
 import test from 'ava'
-import testsuite from '../ratlog.github.io/ratlog.testsuite.json'
 import ratlog from './index'
 
-const cases = testsuite.generic
+const testsuiteURL = 'https://raw.githubusercontent.com/ratlog/ratlog.github.io/master/ratlog.testsuite.json'
+const specFile = path.join(__dirname, 'spec.json')
 
-test(`logging all ${cases.length} cases correctly`, t => {
-  t.plan(cases.length)
+let testcases
 
-  cases.forEach(({data, log}) => {
+function loadTestcases (cb) {
+  fs.readFile(specFile, 'utf8', (err, contents) => {
+    if (err) return cb(err)
+    testcases = JSON.parse(contents).generic
+    cb()
+  })
+}
+
+test.serial.before.cb('ensure spec.json exists', t => {
+  fs.stat(specFile, err => {
+    if (!err) return loadTestcases(t.end)
+    console.log('downloading spec.json ...')
+    https.get(testsuiteURL, res => {
+      pump(res, fs.createWriteStream(specFile), () => {
+        console.log('download done.')
+        loadTestcases(t.end)
+      })
+    })
+  })
+})
+
+test.serial(`testing spec.json cases correctly`, t => {
+  t.plan(testcases.length)
+
+  testcases.forEach(({data, log}) => {
     const write = line => {
       t.is(line, log, 'Input:\n\n' + JSON.stringify(data, null, 2))
     }
