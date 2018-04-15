@@ -56,3 +56,5 @@ function toString (val) {
 }
 
 module.exports = ratlog
+// For Typescript and other ES modules use cases
+module.exports.default = ratlog

@@ -53,3 +53,23 @@ examples.forEach(example => {
   }
   )
 })
+
+test('TypeScript typings', async t => {
+  const out =
+`msg
+msg | count: 2 | path: /
+[a|b] msg
+[tag] msg
+[tag] msg
+[a|b] msg
+[tag] msg
+[scope] msg
+`
+  const examplePath = path.join(examplesDir, 'typings.ts')
+
+  const {stdout, stderr} = await exec('ts-node --typeCheck ' + examplePath)
+
+  t.is(stdout, out)
+  t.is(stderr, '')
+}
+)
