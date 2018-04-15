@@ -37,7 +37,7 @@ function formatField (val) {
 
 function toString (val) {
   if (typeof val === 'string') {
-    return val
+    return escapeNewLines(val)
   }
 
   if (val == null) {
@@ -45,14 +45,18 @@ function toString (val) {
   }
 
   try {
-    return val.toString()
+    return escapeNewLines(val.toString())
   } catch (e) {
     try {
-      return 'logger failed calling .toString(): ' + e.toString()
+      return 'logger failed calling .toString(): ' + escapeNewLines(e.toString())
     } catch (e) {
       return ''
     }
   }
+}
+
+function escapeNewLines (val) {
+  return val.replace(/\n/g, '\\n')
 }
 
 module.exports = ratlog
