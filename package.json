@@ -8,8 +8,9 @@
     "test:watch": "ava --watch",
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "doc": "npx typedoc --out docs --excludeExternals --includeDeclarations api.d.ts",
-		"clean": "rm -rf spec.json docs"
+    "doc": "npx typedoc --out docs --excludeExternals --includeDeclarations --theme minimal api.d.ts",
+    "gh-pages": "npm run doc && touch docs/.nojekyll",
+    "clean": "rm -rf spec.json docs"
   },
   "engines": {
     "node": ">=8.0.0"
