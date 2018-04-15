@@ -1,4 +1,5 @@
 const ratlog = require('../index')
+
 const main = () => {
   const log = ratlog(process.stdout)
 
@@ -36,13 +37,20 @@ const startCounter = ({ max = 0, interval = 3000, log, done }) => {
 
     setTimeout(count, interval, x + 1)
   }
-  count()
 
   log('started')
+
+  // Run async after init is done
+  setImmediate(count)
 }
 
-const countMetric = () => {
-  // count metric here...
+// Simulate metrics counting. Would normally be done by an external system.
+let globalCount = 0
+
+// Writing metrics to stderr to simulate metrics collecting
+const countMetric = (count) => {
+  globalCount += count
+  process.stderr.write(`count = ${globalCount}\n`)
 }
 
 main()

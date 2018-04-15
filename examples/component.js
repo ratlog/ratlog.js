@@ -30,9 +30,11 @@ const startCounter = ({ max = 0, interval = 3000, log, done }) => {
 
     setTimeout(count, interval, x + 1)
   }
-  count()
 
   log('started')
+
+  // Run async after init is done
+  setImmediate(count)
 }
 
 main()
