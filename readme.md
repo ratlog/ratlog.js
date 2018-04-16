@@ -2,7 +2,7 @@
 
 ## Application Logging for Rats, Humans and Machines
 
-[GitHub](https://github.com/ratlog/ratlog.js) [![Build Status](https://travis-ci.org/ratlog/ratlog.js.svg?branch=master)](https://travis-ci.org/ratlog/ratlog.js)
+[![Build Status](https://travis-ci.org/ratlog/ratlog.js.svg?branch=master)](https://travis-ci.org/ratlog/ratlog.js) [![npm](https://img.shields.io/npm/v/ratlog.svg)](https://www.npmjs.com/package/ratlog) [![GitHub last commit](https://img.shields.io/github/last-commit/ratlog/ratlog.js.svg)](https://github.com/ratlog/ratlog.js) [![GitHub issues](https://img.shields.io/github/issues/ratlog/ratlog.js.svg)](https://github.com/ratlog/ratlog.js/issues)
 
 **Disclaimer:** *Ratlog is still alpha status and might be subject to breaking changes. Beware that the API and format might change significantly. We will try our best to tag a stable release as soon as possible. [Leave feedback](https://github.com/ratlog/ratlog.js/issues) and help us get there faster!*
 
