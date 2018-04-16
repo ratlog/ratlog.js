@@ -20,7 +20,7 @@ Or have a look at the **[API Documentation](https://ratlog.github.io/ratlog.js/m
 
 ## Getting started
 
-Install the [ratlog](https://www.npmjs.com/packages/ratlog) NPM package:
+Install the [ratlog](https://www.npmjs.com/package/ratlog) NPM package:
 
 ```
 npm i ratlog
