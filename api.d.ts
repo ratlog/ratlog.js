@@ -18,9 +18,10 @@
  * // => [warn|critical] oh no!
  * ```
  */
-type InitRatlog = (stream: Writable, ...tags: Stringable[]) => Ratlog
+type InitRatlog = (stream: Writable, ...tags: Stringable[]) => Ratlog;
 
-export default InitRatlog
+declare const initRatlog: InitRatlog;
+export default initRatlog;
 
 /**
  * Ratlog tries its best to get a string representation of values passed to it.
@@ -33,7 +34,7 @@ export default InitRatlog
  *
  * `null` and `undefined` are converted to an empty string.
  */
-export type Stringable = string | ToString
+export type Stringable = string | ToString;
 
 /**
  * Ratlog is the main logging function.
@@ -66,14 +67,18 @@ export interface Ratlog {
    * ```
    *
    */
-  (message: Stringable, fields?: { [key: string]: Stringable }, ...tags: Stringable[]): void
+  (
+    message: Stringable,
+    fields?: { [key: string]: Stringable },
+    ...tags: Stringable[]
+  ): void;
 
   /**
    * `.tag()` returns a new logger bound to one or more tags.
    *
    * The returned `Ratlog` workes identically to described above with the only difference that some tags are always set.
    */
-  tag: (...tags: Stringable[]) => Ratlog
+  tag: (...tags: Stringable[]) => Ratlog;
 }
 
 /**
@@ -85,7 +90,7 @@ export interface Ratlog {
  * create a more readable representation.
  */
 export interface ToString {
-  toString: () => string
+  toString: () => string;
 }
 
 /**
@@ -96,5 +101,5 @@ export interface ToString {
  * easily create mock versions for testing and so on.
  */
 export interface Writable {
-  write: (s: string) => void
+  write: (s: string) => void;
 }
