@@ -1,8 +1,8 @@
 {
   "name": "ratlog",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "application logging for humans and machines",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "standard && ava",
     "test:watch": "ava --watch",
@@ -15,6 +15,11 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "files": [
+    "index.js",
+    "api.d.ts",
+    "license"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ratlog/ratlog.js.git"
@@ -40,5 +45,6 @@
     "ts-node": "^5.0.1",
     "typedoc": "^0.11.1",
     "typescript": "^2.8.1"
-  }
+  },
+  "types": "./api.d.ts"
 }
