@@ -1,5 +1,5 @@
 function ratlog (stream, ...initTags) {
-  function log (message, fields, ...callTags) {
+  return Object.assign((message, fields, ...callTags) => {
     const formattedTags = [...initTags, ...callTags].map(t => formatTag(t))
 
     const tagString = formattedTags.length ? `[${formattedTags.join('|')}] ` : ''
@@ -14,34 +14,23 @@ function ratlog (stream, ...initTags) {
       .join('')
 
     stream.write(tagString + messageString + fieldString + '\n')
-  }
-
-  log.tag = function tag (...additionalTags) {
-    return ratlog(stream, ...[...initTags, ...additionalTags])
-  }
-
-  return log
+  }, {
+    tag: (...additionalTags) => ratlog(stream, ...[...initTags, ...additionalTags])
+  })
 }
 
-function formatTag (val) {
-  return toString(val).replace(/[|\]]/g, '\\$&')
-}
-
-function formatMessage (val) {
-  return toString(val).replace(/[|[]/g, '\\$&')
-}
-
-function formatField (val) {
-  return toString(val).replace(/[|:]/g, '\\$&')
-}
+const formatTag = (val) => toString(val).replace(/[|\]]/g, '\\$&')
+const formatMessage = (val) => toString(val).replace(/[|[]/g, '\\$&')
+const formatField = (val) => toString(val).replace(/[|:]/g, '\\$&')
+const escapeNewLines = (val) => val.replace(/\n/g, '\\n')
 
 function toString (val) {
-  if (typeof val === 'string') {
-    return escapeNewLines(val)
-  }
-
   if (val == null) {
     return ''
+  }
+
+  if (typeof val === 'string') {
+    return escapeNewLines(val)
   }
 
   try {
@@ -53,10 +42,6 @@ function toString (val) {
       return ''
     }
   }
-}
-
-function escapeNewLines (val) {
-  return val.replace(/\n/g, '\\n')
 }
 
 module.exports = ratlog

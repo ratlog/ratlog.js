@@ -1,13 +1,13 @@
 {
   "name": "ratlog",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "application logging for humans and machines",
   "main": "./index.js",
   "scripts": {
     "test": "standard && ava",
     "test:watch": "ava --watch",
     "lint": "standard",
-    "lint:fix": "standard --fix",
+    "format": "standard --fix",
     "doc": "npx typedoc --out docs --excludeExternals --includeDeclarations --theme minimal api.d.ts",
     "gh-pages": "npm run doc && touch docs/.nojekyll",
     "clean": "rm -rf spec.json docs"
