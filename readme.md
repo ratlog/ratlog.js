@@ -7,13 +7,15 @@
 **Disclaimer:** *Ratlog is still alpha status and might be subject to breaking changes. Beware that the API and format might change significantly. We will try our best to tag a stable release as soon as possible. [Leave feedback](https://github.com/ratlog/ratlog.js/issues) and help us get there faster!*
 
 
-ratlog.js is a Node.js logging library that uses the [Ratlog logging format](https://ratlog.github.io).
+Ratlog.js is a Node.js logging library that uses the [Ratlog logging format](https://github.com/ratlog/ratlog.github.io).
 
 The output is opinionated to be readable by rats, humans and machines.
+
 The provided API is designed to be as simple to use as possible while providing you with all Ratlog semantics.
 Each log line can consist of a **message**, **tags** and **fields** which provides you enough context to quickly understand what's happening in your system.
 
-To learn more about the design and ideas behind Ratlog, checkout [ratlog.github.io](https://ratlog.github.io).
+For an introduction, see [this article](https://jorin.me/ratlog-js-javascript-application-logging-for-rats-humans-and-machines/).
+To learn more about the design and ideas behind the Ratlog spec, checkout [ratlog.github.io](https://github.com/ratlog/ratlog.github.io).
 
 Or have a look at the **[API Documentation](https://ratlog.github.io/ratlog.js/modules/_api_d_.html).**
 
@@ -30,6 +32,7 @@ Starting logging:
 
 ```js
 const log = require('ratlog')(process.stdout)
+
 log('hello world')
 // => hello world
 
@@ -69,6 +72,6 @@ Feel free to open an [issue](https://github.com/ratlog/ratlog.js/issues) to ask 
 To contribute code, run `npm i` to setup your dev environment and before submitting a [Pull Request](https://github.com/ratlog/ratlog.js/pulls), make sure `npm t` is passing.
 
 
-## Licsense
+## License
 
 [MIT](https://github.com/ratlog/ratlog.js/blob/master/license)
