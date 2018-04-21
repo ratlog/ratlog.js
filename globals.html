@@ -916,17 +916,19 @@ img { max-width: 100%; }
 			<h2 id="application-logging-for-rats-humans-and-machines">Application Logging for Rats, Humans and Machines</h2>
 			<p><a href="https://travis-ci.org/ratlog/ratlog.js"><img src="https://travis-ci.org/ratlog/ratlog.js.svg?branch=master" alt="Build Status"></a> <a href="https://www.npmjs.com/package/ratlog"><img src="https://img.shields.io/npm/v/ratlog.svg" alt="npm"></a> <a href="https://github.com/ratlog/ratlog.js"><img src="https://img.shields.io/github/last-commit/ratlog/ratlog.js.svg" alt="GitHub last commit"></a> <a href="https://github.com/ratlog/ratlog.js/issues"><img src="https://img.shields.io/github/issues/ratlog/ratlog.js.svg" alt="GitHub issues"></a></p>
 			<p><strong>Disclaimer:</strong> <em>Ratlog is still alpha status and might be subject to breaking changes. Beware that the API and format might change significantly. We will try our best to tag a stable release as soon as possible. <a href="https://github.com/ratlog/ratlog.js/issues">Leave feedback</a> and help us get there faster!</em></p>
-			<p>ratlog.js is a Node.js logging library that uses the <a href="https://ratlog.github.io">Ratlog logging format</a>.</p>
-			<p>The output is opinionated to be readable by rats, humans and machines.
-				The provided API is designed to be as simple to use as possible while providing you with all Ratlog semantics.
+			<p>Ratlog.js is a Node.js logging library that uses the <a href="https://ratlog.github.io">Ratlog logging format</a>.</p>
+			<p>The output is opinionated to be readable by rats, humans and machines.</p>
+			<p>The provided API is designed to be as simple to use as possible while providing you with all Ratlog semantics.
 			Each log line can consist of a <strong>message</strong>, <strong>tags</strong> and <strong>fields</strong> which provides you enough context to quickly understand what&#39;s happening in your system.</p>
-			<p>To learn more about the design and ideas behind Ratlog, checkout <a href="https://ratlog.github.io">ratlog.github.io</a>.</p>
+			<p>For an introduction, see <a href="https://jorin.me/ratlog-js-javascript-application-logging-for-rats-humans-and-machines/">this article</a>.
+			To learn more about the design and ideas behind the Ratlog spec, checkout <a href="https://ratlog.github.io">ratlog.github.io</a>.</p>
 			<p>Or have a look at the <strong><a href="https://ratlog.github.io/ratlog.js/modules/_api_d_.html">API Documentation</a>.</strong></p>
 			<h2 id="getting-started">Getting started</h2>
 			<p>Install the <a href="https://www.npmjs.com/package/ratlog">ratlog</a> NPM package:</p>
 			<pre><code>npm <span class="hljs-selector-tag">i</span> ratlog
 </code></pre><p>Starting logging:</p>
 			<pre><code class="lang-js"><span class="hljs-keyword">const</span> log = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ratlog'</span>)(process.stdout)
+
 log(<span class="hljs-string">'hello world'</span>)
 <span class="hljs-comment">// =&gt; hello world</span>
 
@@ -956,7 +958,7 @@ critical(<span class="hljs-string">'shutting down all servers'</span>)
 			<h2 id="development-and-contributing">Development and Contributing</h2>
 			<p>Feel free to open an <a href="https://github.com/ratlog/ratlog.js/issues">issue</a> to ask questions or give feedback and make suggestions.</p>
 			<p>To contribute code, run <code>npm i</code> to setup your dev environment and before submitting a <a href="https://github.com/ratlog/ratlog.js/pulls">Pull Request</a>, make sure <code>npm t</code> is passing.</p>
-			<h2 id="licsense">Licsense</h2>
+			<h2 id="license">License</h2>
 			<p><a href="https://github.com/ratlog/ratlog.js/blob/master/license">MIT</a></p>
 		</div>
 		<section class="tsd-panel-group tsd-index-group">
