@@ -958,7 +958,7 @@ img { max-width: 100%; }
 				<li class="tsd-description">
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/a3c9842/api.d.ts#L42">api.d.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/4f64365/api.d.ts#L42">api.d.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -970,10 +970,8 @@ img { max-width: 100%; }
 						That is a good practise because an empty log line is mostly meaningless.</p>
 						<p><code>fields</code> and <code>tags</code> are optional:</p>
 						<pre><code><span class="hljs-function"><span class="hljs-title">log</span><span class="hljs-params">(<span class="hljs-string">'hey there'</span>)</span></span>
-</code></pre><p>If you want to add tags but no fields, you cannot ommit the fields but you could do something like this:</p>
-						<pre><code><span class="hljs-function"><span class="hljs-title">log</span><span class="hljs-params">(<span class="hljs-string">'msg'</span>, null, <span class="hljs-string">'mytag'</span>)</span></span>
-</code></pre><p>However, the intend can be communicated better by writing it as:</p>
-						<pre><code><span class="hljs-keyword">log</span>.<span class="hljs-built_in">tag</span>(<span class="hljs-string">'mytag'</span>)(<span class="hljs-string">'msg'</span>)
+</code></pre><p>If you want to add tags but no fields, you omit the fields:</p>
+						<pre><code><span class="hljs-function"><span class="hljs-title">log</span><span class="hljs-params">(<span class="hljs-string">'msg'</span>, <span class="hljs-string">'mytag'</span>)</span></span>
 </code></pre>
 					</div>
 					<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1018,7 +1016,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/a3c9842/api.d.ts#L81">api.d.ts:81</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/4f64365/api.d.ts#L75">api.d.ts:75</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
