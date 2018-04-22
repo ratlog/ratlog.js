@@ -54,16 +54,10 @@ export interface Ratlog {
    * log('hey there')
    * ```
    *
-   * If you want to add tags but no fields, you cannot ommit the fields but you could do something like this:
+   * If you want to add tags but no fields, you omit the fields:
    *
    * ```
-   * log('msg', null, 'mytag')
-   * ```
-   *
-   * However, the intend can be communicated better by writing it as:
-   *
-   * ```
-   * log.tag('mytag')('msg')
+   * log('msg', 'mytag')
    * ```
    *
    */

@@ -1,5 +1,10 @@
 function ratlog (stream, ...initTags) {
   return Object.assign((message, fields, ...callTags) => {
+    if (typeof fields === 'string') {
+      callTags = [fields, ...callTags]
+      fields = {}
+    }
+
     const formattedTags = [...initTags, ...callTags].map(formatTag).join('|')
     const tagString = formattedTags && `[${formattedTags}] `
 

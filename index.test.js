@@ -54,6 +54,28 @@ test('with initial tag', t => {
   l('msg', { a: 1, b: 2 }, 'x', 'y')
 })
 
+test('with tags only', t => {
+  t.plan(1)
+
+  const write = line => {
+    t.is(line, '[x|y] msg\n')
+  }
+
+  const l = ratlog({write})
+  l('msg', 'x', 'y')
+})
+
+test('with one tag only', t => {
+  t.plan(1)
+
+  const write = line => {
+    t.is(line, '[tag] msg\n')
+  }
+
+  const l = ratlog({write})
+  l('msg', 'tag')
+})
+
 test('with .tag()', t => {
   t.plan(1)
 
