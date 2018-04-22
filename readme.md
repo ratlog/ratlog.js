@@ -60,6 +60,22 @@ critical('shutting down all servers')
 There are more **[examples](https://github.com/ratlog/ratlog.js/tree/master/examples)** to learn how you can use **tags** to provide context in your logs about different components of your system.
 
 
+-------------
+
+
+Thanks to [@wmhilton](https://github.com/wmhilton) for pointing this out:
+
+You can color tags by combining Ratlog with [chalk](https://github.com/chalk/chalk):
+
+```js
+const warn = log.tag(chalk.red('warning'))
+log('Normal log')
+warn('Warning log')
+```
+
+![colored log tags](https://thepracticaldev.s3.amazonaws.com/i/zfjh59l1y3ivr0pryivd.PNG)
+
+
 ## Requirements
 
 Node >= 8.0.0
