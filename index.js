@@ -1,4 +1,13 @@
-function ratlog (stream, ...initTags) {
+const ratlog = Object.assign((writer, transform, ...initTags) => {
+  if (!writer.write) {
+    writer = { write: writer }
+  }
+
+  if (transform != null && typeof transform !== 'function') {
+    initTags = [transform, ...initTags]
+    transform = null
+  }
+
   return Object.assign((message = '', fields = {}, ...callTags) => {
     if (typeof fields === 'string') {
       callTags = [fields, ...callTags]
@@ -6,24 +15,35 @@ function ratlog (stream, ...initTags) {
     }
 
     const tags = [...initTags, ...callTags]
-    const joinedTags = tags.map(formatTag).join('|')
-    const tagString = joinedTags && `[${joinedTags}] `
 
-    const messageString = formatMessage(message)
+    const data = { message, tags, fields }
+    const log = transform ? transform(data) : data
+    if (!log) {
+      return
+    }
 
-    const fieldString = Object.entries(fields || {})
-      .map(([k, v]) => {
-        const key = formatField(k)
-        const value = formatField(v)
-        return ` | ${key}${value && ': ' + value}`
-      }
-      )
-      .join('')
-
-    stream.write(tagString + messageString + fieldString + '\n', { message, tags, fields })
+    writer.write(stringify(log))
   }, {
-    tag: (...additionalTags) => ratlog(stream, ...initTags, ...additionalTags)
+    tag: (...additionalTags) => ratlog(writer, transform, ...initTags, ...additionalTags)
   })
+}, { stringify })
+
+function stringify ({ tags, message, fields }) {
+  const joinedTags = tags.map(formatTag).join('|')
+  const tagString = joinedTags && `[${joinedTags}] `
+
+  const messageString = formatMessage(message)
+
+  const fieldString = Object.entries(fields || {})
+    .map(([k, v]) => {
+      const key = formatField(k)
+      const value = formatField(v)
+      return ` | ${key}${value && ': ' + value}`
+    }
+    )
+    .join('')
+
+  return tagString + messageString + fieldString + '\n'
 }
 
 const formatTag = val => toString(val).replace(/[|\]]/g, '\\$&')

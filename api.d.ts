@@ -1,7 +1,7 @@
 /**
- * The default export is a function to create a logger.
+ * The default export is a function that creates a logger.
  *
- * All it does is returning a log function bound to a writable stream.
+ * All it does is returning a log function bound to a writable stream or function.
  *
  * _Example:_
  *
@@ -17,11 +17,91 @@
  * critical('oh no!')
  * // => [warn|critical] oh no!
  * ```
+ *
+ * Optionally a transform function can be given which can modify or filter logs:
+ *
+ * ```
+ * const log = ratlog(
+ *   process.stdout,
+ *   log => process.env.DEBUG || !log.tags.includes('debug') ? log : null
+ * )
+ * ```
+ *
+ * If transform returns `null` or `undefined`, the log is ignored.
+ * Make sure the transform function doesn't crash and returns valid RatlogData.
  */
-type InitRatlog = (stream: Writable, ...tags: Stringable[]) => Ratlog;
+export type Ratlog = {
+  (stream: Writer, ...tags: Stringable[]): Ratlogger;
 
-declare const initRatlog: InitRatlog;
-export default initRatlog;
+  (stream: Writer, transform: (data: RatlogData) => RatlogData, ...tags: Stringable[]): Ratlogger;
+
+  /**
+   * `stringify` is the helper function which does the actual work of producing a Ratlog compliant string.
+   *
+   * Normally it doesn't need to be used directly, but it is exposed just in case.
+   */
+  stringify: (log: RatlogData) => string;
+}
+
+/**
+ * The default export is a function to create a logger.
+ *
+ * See `Ratlog` at the top of this document.
+ */
+declare const ratlog: Ratlog;
+export default ratlog;
+
+
+/**
+ * Ratlogger is the main logging function.
+ *
+ * Ratlogger takes a *message*, an object of *fields* and a rest of *tags*.
+ *
+ * No argument is required, but the typings force you to at least provide a message.
+ * That is a good practise because an empty log line is mostly meaningless.
+ *
+ * `fields` and `tags` are optional:
+ *
+ * ```
+ * log('hey there')
+ * ```
+ *
+ * If you want to add tags but no fields, you can omit the fields:
+ *
+ * ```
+ * log('msg', 'mytag')
+ * ```
+ *
+ */
+export type Ratlogger = {
+  (message: Stringable): void;
+  (message: Stringable, fields: { [key: string]: Stringable }): void;
+  (message: Stringable, ...tags: Stringable[]): void;
+  (message: Stringable, fields: { [key: string]: Stringable }, ...tags: Stringable[]): void;
+
+  /**
+   * `.tag()` returns a new logger bound to one or more tags.
+   *
+   * The returned Ratlogger workes identical to above with the only difference that some tags are always set.
+   *
+   * ```
+   * const warn = log.tag('warn')
+   *
+   * warn('it is late')
+   * // => [warn] it is late
+   * ```
+   */
+  tag: (...tags: Stringable[]) => Ratlogger;
+}
+
+/**
+ * `RatlogData` represents an unprocessed log as data.
+ */
+export type RatlogData = {
+  message: Stringable;
+  tags: Stringable[];
+  fields: { [key: string]: Stringable };
+}
 
 /**
  * Ratlog tries its best to get a string representation of values passed to it.
@@ -32,48 +112,9 @@ export default initRatlog;
  * Errors are catched in case that fails. Logging should never fail.
  * But it is not pretty.
  *
- * `null` and `undefined` are converted to an empty string.
+ * `null` and `undefined` are converted to empty strings.
  */
 export type Stringable = string | ToString;
-
-/**
- * Ratlog is the main logging function.
- */
-export interface Ratlog {
-  /**
-   * Mostly you are simply using Ratlog as a function that you call to log something.
-   *
-   * Ratlog takes a *message*, an object of *fields* and a rest of *tags*.
-   *
-   * No argument is required, but the typings force you to at least provide a message.
-   * That is a good practise because an empty log line is mostly meaningless.
-   *
-   * `fields` and `tags` are optional:
-   *
-   * ```
-   * log('hey there')
-   * ```
-   *
-   * If you want to add tags but no fields, you omit the fields:
-   *
-   * ```
-   * log('msg', 'mytag')
-   * ```
-   *
-   */
-  (
-    message: Stringable,
-    fields?: { [key: string]: Stringable },
-    ...tags: Stringable[]
-  ): void;
-
-  /**
-   * `.tag()` returns a new logger bound to one or more tags.
-   *
-   * The returned `Ratlog` workes identically to described above with the only difference that some tags are always set.
-   */
-  tag: (...tags: Stringable[]) => Ratlog;
-}
 
 /**
  * `ToString` is automatically implemented by any object with a `.toString()` method.
@@ -83,29 +124,25 @@ export interface Ratlog {
  * you can create your own implementation to
  * create a more readable representation.
  */
-export interface ToString {
+export type ToString = {
   toString: () => string;
 }
 
-
 /**
- * `RatlogData` represents an unprocessed log as data.
- */
-export interface RatlogData {
-  message: Stringable;
-  tags: Stringable[];
-  fields: { [key: string]: Stringable };
-}
-
-/**
- * `Writable` is a narrow interface for the stream passed to the Ratlog constructor.
+ * `Writer` is a narrow interface for the stream or function passed to the Ratlog constructor.
  *
  * In practise you would mostly want to pass a stream like `process.stdout`
  * but having this narrow interface allows you to
  * easily create mock versions for testing and so on.
  *
- * The second argument can be used for custom processing and filtering.
+ * By implementing your own writer, you could even use Ratlog in the browser:
+ *
+ * ```
+ * const log = ratlog(console.log)
+ * ```
  */
-export interface Writable {
-  write: (logLine: string, logData: RatlogData) => void;
+export type Writer = {
+   write: (logLine: string) => void;
+
+  (logLine: string): void
 }

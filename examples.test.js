@@ -10,6 +10,8 @@ const examplesDir = path.join(__dirname, 'examples')
 const examples = [
   { name: 'simple', out: 'hello world\n', err: '' },
 
+  { name: 'console-log', out: 'hello world\n', err: '' },
+
   {
     name: 'component',
     out:
