@@ -51,15 +51,15 @@ count = 3
     name: 'debug-tag',
     out: 'log\n[debug] debugging only\n',
     err: '',
-    options: { env: { DEBUG: true } }
+    env: { DEBUG: true }
   }
 ]
 
 examples.forEach(example => {
   test(example.name, async t => {
     const examplePath = path.join(examplesDir, example.name + '.js')
-
-    const {stdout, stderr} = await exec('node ' + examplePath, example.options)
+    const options = { env: { ...process.env, ...example.env } }
+    const {stdout, stderr} = await exec('node ' + examplePath, options)
 
     t.is(stdout, example.out)
     t.is(stderr, example.err)
