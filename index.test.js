@@ -43,7 +43,7 @@ test.serial(`testing spec.json cases correctly`, t => {
   })
 })
 
-test('with initial tag', t => {
+test('initial tag', t => {
   t.plan(1)
 
   const write = line => {
@@ -51,10 +51,11 @@ test('with initial tag', t => {
   }
 
   const l = ratlog({write}, 'tag')
+
   l('msg', { a: 1, b: 2 }, 'x', 'y')
 })
 
-test('with tags only', t => {
+test('tags only', t => {
   t.plan(1)
 
   const write = line => {
@@ -65,7 +66,7 @@ test('with tags only', t => {
   l('msg', 'x', 'y')
 })
 
-test('with one tag only', t => {
+test('one tag only', t => {
   t.plan(1)
 
   const write = line => {
@@ -73,10 +74,11 @@ test('with one tag only', t => {
   }
 
   const l = ratlog({write})
+
   l('msg', 'tag')
 })
 
-test('with .tag()', t => {
+test('.tag()', t => {
   t.plan(1)
 
   const write = line => {
@@ -84,10 +86,11 @@ test('with .tag()', t => {
   }
 
   const l = ratlog({write}).tag('a', 'b')
+
   l('msg', { a: 1, b: 2 }, 'x', 'y')
 })
 
-test('with .tag().tag()', t => {
+test('.tag().tag()', t => {
   t.plan(1)
 
   const write = line => {
@@ -95,5 +98,27 @@ test('with .tag().tag()', t => {
   }
 
   const l = ratlog({write}).tag(1).tag('2', 3)
+
   l('msg', { a: 1, b: 2 }, 'x', 'y')
+})
+
+test('tag data', t => {
+  t.plan(2)
+
+  const message = 'hey\nhey'
+  const tags = ['x', 'y']
+  const fields = { a: 1, b: 2, c: undefined }
+
+  const write = (line, data) => {
+    t.is(line, '[x|y] hey\\nhey | a: 1 | b: 2 | c\n')
+    t.deepEqual(data, {
+      message,
+      tags,
+      fields
+    })
+  }
+
+  const l = ratlog({write})
+
+  l(message, fields, ...tags)
 })

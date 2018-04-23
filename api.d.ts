@@ -87,13 +87,25 @@ export interface ToString {
   toString: () => string;
 }
 
+
+/**
+ * `RatlogData` represents an unprocessed log as data.
+ */
+export interface RatlogData {
+  message: Stringable;
+  tags: Stringable[];
+  fields: { [key: string]: Stringable };
+}
+
 /**
  * `Writable` is a narrow interface for the stream passed to the Ratlog constructor.
  *
  * In practise you would mostly want to pass a stream like `process.stdout`
  * but having this narrow interface allows you to
  * easily create mock versions for testing and so on.
+ *
+ * The second argument can be used for custom processing and filtering.
  */
 export interface Writable {
-  write: (s: string) => void;
+  write: (logLine: string, logData: RatlogData) => void;
 }

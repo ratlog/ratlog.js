@@ -10,7 +10,8 @@ const examplesDir = path.join(__dirname, 'examples')
 const examples = [
   { name: 'simple', out: 'hello world\n', err: '' },
 
-  { name: 'component',
+  {
+    name: 'component',
     out:
 `app starting
 [counter] starting
@@ -24,7 +25,8 @@ app shutting down
     err: ''
   },
 
-  { name: 'component-with-metrics',
+  {
+    name: 'component-with-metrics',
     out:
 `app starting
 [counter] starting
@@ -39,6 +41,15 @@ app shutting down
 `count = 1
 count = 3
 `
+  },
+
+  { name: 'debug-tag', out: 'log\n', err: '' },
+
+  {
+    name: 'debug-tag',
+    out: 'log\n[debug] debugging only\n',
+    err: '',
+    options: { env: { DEBUG: true } }
   }
 ]
 
@@ -46,7 +57,7 @@ examples.forEach(example => {
   test(example.name, async t => {
     const examplePath = path.join(examplesDir, example.name + '.js')
 
-    const {stdout, stderr} = await exec('node ' + examplePath)
+    const {stdout, stderr} = await exec('node ' + examplePath, example.options)
 
     t.is(stdout, example.out)
     t.is(stderr, example.err)

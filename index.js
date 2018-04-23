@@ -1,23 +1,26 @@
 function ratlog (stream, ...initTags) {
-  return Object.assign((message, fields, ...callTags) => {
+  return Object.assign((message = '', fields = {}, ...callTags) => {
     if (typeof fields === 'string') {
       callTags = [fields, ...callTags]
       fields = {}
     }
 
-    const formattedTags = [...initTags, ...callTags].map(formatTag).join('|')
-    const tagString = formattedTags && `[${formattedTags}] `
+    const tags = [...initTags, ...callTags]
+    const joinedTags = tags.map(formatTag).join('|')
+    const tagString = joinedTags && `[${joinedTags}] `
 
     const messageString = formatMessage(message)
 
     const fieldString = Object.entries(fields || {})
       .map(([k, v]) => {
+        const key = formatField(k)
         const value = formatField(v)
-        return ` | ${formatField(k)}${value && ': ' + value}`
-      })
+        return ` | ${key}${value && ': ' + value}`
+      }
+      )
       .join('')
 
-    stream.write(tagString + messageString + fieldString + '\n')
+    stream.write(tagString + messageString + fieldString + '\n', { message, tags, fields })
   }, {
     tag: (...additionalTags) => ratlog(stream, ...initTags, ...additionalTags)
   })
