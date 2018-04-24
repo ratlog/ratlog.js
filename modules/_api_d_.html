@@ -964,7 +964,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Ratlog<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L33">api.d.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L33">api.d.ts:33</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1079,7 +1079,7 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 				<div class="tsd-signature tsd-kind-icon">Ratlog<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L100">api.d.ts:100</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L106">api.d.ts:106</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1113,7 +1113,7 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 				<div class="tsd-signature tsd-kind-icon">Ratlogger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L76">api.d.ts:76</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L79">api.d.ts:79</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1134,10 +1134,8 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 					<ul class="tsd-parameters">
 						<li class="tsd-parameter-siganture">
 							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a>, fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a>, fields<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, <span class="tsd-signature-symbol">...</span>tags<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a>, <span class="tsd-signature-symbol">...</span>tags<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a>, fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, <span class="tsd-signature-symbol">...</span>tags<span class="tsd-signature-symbol">: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 							</ul>
 							<ul class="tsd-descriptions">
 								<li class="tsd-description">
@@ -1146,31 +1144,13 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 										<li>
 											<h5>message: <a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a></h5>
 										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-								</li>
-								<li class="tsd-description">
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
 										<li>
-											<h5>message: <a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a></h5>
-										</li>
-										<li>
-											<h5>fields: <span class="tsd-signature-type">object</span></h5>
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> fields: <span class="tsd-signature-type">object</span></h5>
 											<ul class="tsd-parameters">
 												<li class="tsd-parameter-index-signature">
 													<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a></h5>
 												</li>
 											</ul>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-								</li>
-								<li class="tsd-description">
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>message: <a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a></h5>
 										</li>
 										<li>
 											<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>tags: <a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a><span class="tsd-signature-symbol">[]</span></h5>
@@ -1183,14 +1163,6 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 									<ul class="tsd-parameters">
 										<li>
 											<h5>message: <a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a></h5>
-										</li>
-										<li>
-											<h5>fields: <span class="tsd-signature-type">object</span></h5>
-											<ul class="tsd-parameters">
-												<li class="tsd-parameter-index-signature">
-													<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a></h5>
-												</li>
-											</ul>
 										</li>
 										<li>
 											<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>tags: <a href="_api_d_.html#stringable" class="tsd-signature-type">Stringable</a><span class="tsd-signature-symbol">[]</span></h5>
@@ -1241,7 +1213,7 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 				<div class="tsd-signature tsd-kind-icon">Stringable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_api_d_.html#tostring" class="tsd-signature-type">ToString</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L117">api.d.ts:117</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L123">api.d.ts:123</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1261,7 +1233,7 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 				<div class="tsd-signature tsd-kind-icon">To<wbr>String<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L127">api.d.ts:127</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L133">api.d.ts:133</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1297,10 +1269,10 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
 				<a name="writer" class="tsd-anchor"></a>
 				<h3>Writer</h3>
-				<div class="tsd-signature tsd-kind-icon">Writer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+				<div class="tsd-signature tsd-kind-icon">Writer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L144">api.d.ts:144</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L150">api.d.ts:150</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1314,48 +1286,6 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 					<pre><code><span class="hljs-keyword">const</span> <span class="hljs-built_in">log</span> = ratlog(console.<span class="hljs-built_in">log</span>)
 </code></pre>
 				</div>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>logLine<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>logLine: <span class="tsd-signature-type">string</span></h5>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-								</li>
-							</ul>
-						</li>
-						<li class="tsd-parameter">
-							<h5>write<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter-siganture">
-									<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
-										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>logLine<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-									</ul>
-									<ul class="tsd-descriptions">
-										<li class="tsd-description">
-											<h4 class="tsd-parameters-title">Parameters</h4>
-											<ul class="tsd-parameters">
-												<li>
-													<h5>logLine: <span class="tsd-signature-type">string</span></h5>
-												</li>
-											</ul>
-											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
@@ -1366,7 +1296,7 @@ const <span class="hljs-built_in">log</span> = ratlog(<span class="hljs-built_in
 				<div class="tsd-signature tsd-kind-icon">ratlog<span class="tsd-signature-symbol">:</span> <a href="_api_d_.html#ratlog" class="tsd-signature-type">Ratlog</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/bfdafe4/api.d.ts#L51">api.d.ts:51</a></li>
+						<li>Defined in <a href="https://github.com/ratlog/ratlog.js/blob/3602119/api.d.ts#L55">api.d.ts:55</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
