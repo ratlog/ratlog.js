@@ -33,7 +33,11 @@
 export type Ratlog = {
   (stream: Writer, ...tags: Stringable[]): Ratlogger;
 
-  (stream: Writer, transform: (data: RatlogData) => RatlogData, ...tags: Stringable[]): Ratlogger;
+  (
+    stream: Writer,
+    transform: (data: RatlogData) => RatlogData,
+    ...tags: Stringable[]
+  ): Ratlogger;
 
   /**
    * `stringify` is the helper function which does the actual work of producing a Ratlog compliant string.
@@ -41,7 +45,7 @@ export type Ratlog = {
    * Normally it doesn't need to be used directly, but it is exposed just in case.
    */
   stringify: (log: RatlogData) => string;
-}
+};
 
 /**
  * The default export is a function to create a logger.
@@ -50,7 +54,6 @@ export type Ratlog = {
  */
 declare const ratlog: Ratlog;
 export default ratlog;
-
 
 /**
  * Ratlogger is the main logging function.
@@ -74,10 +77,13 @@ export default ratlog;
  *
  */
 export type Ratlogger = {
-  (message: Stringable): void;
-  (message: Stringable, fields: { [key: string]: Stringable }): void;
+  (
+    message: Stringable,
+    fields?: { [key: string]: Stringable },
+    ...tags: Stringable[]
+  ): void;
+
   (message: Stringable, ...tags: Stringable[]): void;
-  (message: Stringable, fields: { [key: string]: Stringable }, ...tags: Stringable[]): void;
 
   /**
    * `.tag()` returns a new logger bound to one or more tags.
@@ -92,7 +98,7 @@ export type Ratlogger = {
    * ```
    */
   tag: (...tags: Stringable[]) => Ratlogger;
-}
+};
 
 /**
  * `RatlogData` represents an unprocessed log as data.
@@ -101,7 +107,7 @@ export type RatlogData = {
   message: Stringable;
   tags: Stringable[];
   fields: { [key: string]: Stringable };
-}
+};
 
 /**
  * Ratlog tries its best to get a string representation of values passed to it.
@@ -126,7 +132,7 @@ export type Stringable = string | ToString;
  */
 export type ToString = {
   toString: () => string;
-}
+};
 
 /**
  * `Writer` is a narrow interface for the stream or function passed to the Ratlog constructor.
@@ -141,8 +147,6 @@ export type ToString = {
  * const log = ratlog(console.log)
  * ```
  */
-export type Writer = {
-   write: (logLine: string) => void;
-
-  (logLine: string): void
-}
+export type Writer =
+  | { write: (logLine: string) => void }
+  | ((logLine: string) => void);
