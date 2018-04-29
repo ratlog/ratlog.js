@@ -1,4 +1,4 @@
-// Use a transform function to filter and manipulate the data being written.
+// Use a custom logger to filter and manipulate the data being written.
 //
 // The example shows how you can ignore logs tagged with 'debug'
 // unless the `DEBUG` env var is set.

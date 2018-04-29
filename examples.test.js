@@ -52,6 +52,15 @@ count = 3
     out: 'log\n[debug] debugging only\n',
     err: '',
     env: { DEBUG: true }
+  },
+
+  {
+    name: 'json-output',
+    out:
+`{"message":"log","tags":[],"fields":{}}
+{"message":"debugging only","tags":["debug"],"fields":{}}
+`,
+    err: ''
   }
 ]
 
