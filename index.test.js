@@ -5,7 +5,7 @@ import pump from 'pump'
 import test from 'ava'
 import ratlog from './index'
 
-const testsuiteURL = 'https://raw.githubusercontent.com/ratlog/ratlog.github.io/master/ratlog.testsuite.json'
+const testsuiteURL = 'https://raw.githubusercontent.com/ratlog/ratlog-spec/master/ratlog.testsuite.json'
 const specFile = path.join(__dirname, 'spec.json')
 
 let testcases
@@ -102,16 +102,20 @@ test('.tag().tag()', t => {
   l('msg', { a: 1, b: 2 }, 'x', 'y')
 })
 
-test('transform', t => {
+test('transform using .logger()', t => {
   t.plan(1)
 
   const write = line => {
     t.is(line, '[x|y] msg | a: 1 | b: 2 | c\n')
   }
 
-  const transform = log => ({ message: 'msg', tags: log.tags, fields: log.fields })
+  const transform = log => write(ratlog.stringify({
+    message: 'msg',
+    tags: log.tags,
+    fields: log.fields
+  }))
 
-  const l = ratlog(write, transform)
+  const l = ratlog.logger(transform)
 
   l('hey\nhey', { a: 1, b: 2, c: undefined }, ...'x', 'y')
 })

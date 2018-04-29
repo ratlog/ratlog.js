@@ -18,26 +18,30 @@
  * // => [warn|critical] oh no!
  * ```
  *
- * Optionally a transform function can be given which can modify or filter logs:
+ * Alternatively a customized logger can be created using `ratlog.logger()` and `ratlog.stringify()`.
+ *
+ * This can be used to filter out logs with certain tags:
  *
  * ```
- * const log = ratlog(
- *   process.stdout,
- *   log => process.env.DEBUG || !log.tags.includes('debug') ? log : null
- * )
+ * const log = ratlog.logger(log => {
+ *   if (process.env.DEBUG || !log.tags.includes('debug')) {
+ *     process.stdout.write(ratlog.stringify(log))
+ *   }
+ * })
  * ```
  *
- * If transform returns `null` or `undefined`, the log is ignored.
- * Make sure the transform function doesn't crash and returns valid RatlogData.
+ * Or one can only use the Ratlog logging API but skip the output format and use JSON instead:
+ *
+ * ```
+ * const log = ratlog.logger(log => {
+ *   process.stdout.write(JSON.stringify(log))
+ * })
+ * ```
  */
 export type Ratlog = {
-  (stream: Writer, ...tags: Stringable[]): Ratlogger;
+  (writer: Writer<string>, ...tags: Stringable[]): Ratlogger;
 
-  (
-    stream: Writer,
-    transform: (data: RatlogData) => RatlogData,
-    ...tags: Stringable[]
-  ): Ratlogger;
+  logger: (writer: Writer<RatlogData>, ...tags: Stringable[]) => Ratlogger;
 
   /**
    * `stringify` is the helper function which does the actual work of producing a Ratlog compliant string.
@@ -147,6 +151,6 @@ export type ToString = {
  * const log = ratlog(console.log)
  * ```
  */
-export type Writer =
-  | { write: (logLine: string) => void }
-  | ((logLine: string) => void);
+export type Writer<T> =
+  | { write: (data: T) => void }
+  | ((data: T) => void);

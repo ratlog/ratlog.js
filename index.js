@@ -1,56 +1,22 @@
-const createLogFn = (initTags, handle) => (message = '', fields = {}, ...callTags) => {
-  if (typeof fields === 'string') {
-    return handle({
-      message,
-      tags: [...initTags, fields, ...callTags],
-      fields: {}
-    })
-  }
-  return handle({
-    message,
-    tags: [...initTags, ...callTags],
-    fields
-  })
+const logger = (writer, ...initTags) => {
+  const write = getWriteFn(writer)
+
+  const logFn = (message = '', fields = {}, ...callTags) =>
+    typeof fields === 'string'
+      ? write({ message, tags: [...initTags, fields, ...callTags], fields: {} })
+      : write({ message, tags: [...initTags, ...callTags], fields })
+
+  const tag = (...additionalTags) => logger(writer, ...initTags, ...additionalTags)
+
+  return Object.assign(logFn, { tag })
 }
+
+const ratlog = Object.assign((writer, ...initTags) => {
+  const write = getWriteFn(writer)
+  return logger(log => write(stringify(log)), ...initTags)
+}, { logger, stringify })
 
 const getWriteFn = writer => writer.write ? writer.write.bind(writer) : writer
-
-const raw = (writer, ...initTags) => {
-  const logFn = createLogFn(initTags, getWriteFn(writer))
-
-  const tag = (...additionalTags) => raw(writer, ...initTags, ...additionalTags)
-
-  return Object.assign(logFn, { tag })
-}
-
-const createLogger = handle => (writer, transform, ...initTags) => {
-  const writeFn = getWriteFn(writer)
-
-  if (transform == null) {
-    return handle(writeFn, x => x, initTags)
-  }
-
-  if (typeof transform !== 'function') {
-    return handle(writeFn, x => x, [transform, ...initTags])
-  }
-
-  return handle(writeFn, transform, initTags)
-}
-
-const logger = createLogger((write, transform, initTags) => {
-  const logFn = createLogFn(initTags, data => {
-    const transformed = transform(data)
-    if (transformed) {
-      write(stringify(transformed))
-    }
-  })
-
-  const tag = (...additionalTags) => ratlog(write, transform, ...initTags, ...additionalTags)
-
-  return Object.assign(logFn, { tag })
-})
-
-const ratlog = Object.assign(logger, { raw, stringify })
 
 function stringify ({ tags, message, fields }) {
   const joinedTags = tags.map(formatTag).join('|')

@@ -1,6 +1,6 @@
 {
   "name": "ratlog",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "application logging for humans and machines",
   "main": "./index.js",
   "scripts": {

@@ -1,13 +1,13 @@
-# 🐀 Ratlog Node.js library
+# 🐀 Ratlog JavaScript library
 
 ## Application Logging for Rats, Humans and Machines
 
 [![Build Status](https://travis-ci.org/ratlog/ratlog.js.svg?branch=master)](https://travis-ci.org/ratlog/ratlog.js) [![npm](https://img.shields.io/npm/v/ratlog.svg)](https://www.npmjs.com/package/ratlog) [![GitHub last commit](https://img.shields.io/github/last-commit/ratlog/ratlog.js.svg)](https://github.com/ratlog/ratlog.js) [![GitHub issues](https://img.shields.io/github/issues/ratlog/ratlog.js.svg)](https://github.com/ratlog/ratlog.js/issues)
 
-**Disclaimer:** *Ratlog is still alpha status and might be subject to breaking changes. Beware that the API and format might change significantly. We will try our best to tag a stable release as soon as possible. [Leave feedback](https://github.com/ratlog/ratlog.js/issues) and help us get there faster!*
+**Disclaimer:** *Ratlog is still beta status and might be subject to breaking changes. Beware that the API and format might change significantly. We will try our best to tag a stable release as soon as possible. [Leave feedback](https://github.com/ratlog/ratlog.js/issues) and help us get there faster!*
 
 
-Ratlog.js is a Node.js logging library that uses the [Ratlog logging format](https://github.com/ratlog/ratlog.github.io).
+Ratlog.js is a JavaScript logging library that supports the [Ratlog logging format](https://github.com/ratlog/ratlog-spec).
 
 The output is opinionated to be readable by rats, humans and machines.
 
@@ -15,9 +15,14 @@ The provided API is designed to be as simple to use as possible while providing 
 Each log line can consist of a **message**, **tags** and **fields** which provides you enough context to quickly understand what's happening in your system.
 
 For an introduction, see [this article](https://jorin.me/ratlog-js-javascript-application-logging-for-rats-humans-and-machines/).
-To learn more about the design and ideas behind the Ratlog spec, checkout [ratlog.github.io](https://github.com/ratlog/ratlog.github.io).
+To learn more about the design and ideas behind the Ratlog spec, checkout [ratlog-spec](https://github.com/ratlog/ratlog-spec).
 
-Or have a look at the **[API Documentation](https://ratlog.github.io/ratlog.js/modules/_api_d_.html).**
+The Ratlog JavaScript provides Ratlog semantics and the Ratlog format but they can be used independent from each other:
+
+If you only want to make use of the API semantics, you can create a logger using `ratlog.logger()` and use JSON or any other format as output.
+This way you can combine Ratlog's logging semantics with your logging framework or service of choice.
+
+For more have a look at the **[API Documentation](https://ratlog.github.io/ratlog.js/modules/_api_d_.html).**
 
 
 ## Getting started

@@ -4,10 +4,11 @@
 // unless the `DEBUG` env var is set.
 const ratlog = require('../index')
 
-const log = ratlog(
-  process.stdout,
-  log => process.env.DEBUG || !log.tags.includes('debug') ? log : null
-)
+const log = ratlog.logger(log => {
+  if (process.env.DEBUG || !log.tags.includes('debug')) {
+    process.stdout.write(ratlog.stringify(log))
+  }
+})
 
 log('log')
 
