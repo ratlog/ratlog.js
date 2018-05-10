@@ -36,7 +36,8 @@ npm i ratlog
 Starting logging:
 
 ```js
-const log = require('ratlog')(process.stdout)
+const ratlog = require('ratlog')
+const log = ratlog(process.stdout)
 
 log('hello world')
 // => hello world
@@ -60,13 +61,19 @@ const critical = warn.tag('critical')
 
 critical('shutting down all servers')
 // => [warning|critical] shutting down all servers
+
+
+// Create a mock logger while testing
+const logHandler = jest.fn()
+const testLog = ratlog(logHandler)
+testLog('hi', 'info')
+expect(logHandler).toBeCalledWith('[info] hi\n')
 ```
 
 There are more **[examples](https://github.com/ratlog/ratlog.js/tree/master/examples)** to learn how you can use **tags** to provide context in your logs about different components of your system.
 
 
 -------------
-
 
 Thanks to [@wmhilton](https://github.com/wmhilton) for pointing this out:
 
