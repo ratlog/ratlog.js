@@ -930,7 +930,8 @@ img { max-width: 100%; }
 			<p>Install the <a href="https://www.npmjs.com/package/ratlog">ratlog</a> NPM package:</p>
 			<pre><code>npm <span class="hljs-selector-tag">i</span> ratlog
 </code></pre><p>Starting logging:</p>
-			<pre><code class="lang-js"><span class="hljs-keyword">const</span> log = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ratlog'</span>)(process.stdout)
+			<pre><code class="lang-js"><span class="hljs-keyword">const</span> ratlog = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ratlog'</span>)
+<span class="hljs-keyword">const</span> log = ratlog(process.stdout)
 
 log(<span class="hljs-string">'hello world'</span>)
 <span class="hljs-comment">// =&gt; hello world</span>
@@ -954,6 +955,13 @@ warn(<span class="hljs-string">'disk space low'</span>)
 
 critical(<span class="hljs-string">'shutting down all servers'</span>)
 <span class="hljs-comment">// =&gt; [warning|critical] shutting down all servers</span>
+
+
+<span class="hljs-comment">// Create a mock logger while testing</span>
+<span class="hljs-keyword">const</span> logHandler = jest.fn()
+<span class="hljs-keyword">const</span> testLog = ratlog(logHandler)
+testLog(<span class="hljs-string">'hi'</span>, <span class="hljs-string">'info'</span>)
+expect(logHandler).toBeCalledWith(<span class="hljs-string">'[info] hi\n'</span>)
 </code></pre>
 			<p>There are more <strong><a href="https://github.com/ratlog/ratlog.js/tree/master/examples">examples</a></strong> to learn how you can use <strong>tags</strong> to provide context in your logs about different components of your system.</p>
 			<hr>
