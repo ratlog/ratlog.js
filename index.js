@@ -44,6 +44,11 @@ const formatMessage = val => toString(val).replace(/[|[]/g, '\\$&')
 const formatField = val => toString(val).replace(/[|:]/g, '\\$&')
 const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
+const unformatTag = val => val.replace(/\\\|/g, '|').replace(/\\\]/g, ']')
+const unformatMessage = val => val.replace(/\\\|/g, '|').replace(/\\\[/g, '[')
+const unformatField = val => val.replace(/\\\|/g, '|').replace(/\\:/g, ':')
+const unescapeNewlines = val => val.replace(/\\n/g, `\n`)
+
 function toString(val) {
   if (val == null) {
     return ''
