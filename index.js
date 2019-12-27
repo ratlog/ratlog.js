@@ -44,6 +44,29 @@ const formatMessage = val => toString(val).replace(/[|[]/g, '\\$&')
 const formatField = val => toString(val).replace(/[|:]/g, '\\$&')
 const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
+function parse(logLines) {
+  return logLines.split('\n').map(line => {
+    let data = {}
+
+    if (line.charAt(0) == '[') {
+      let matches = line.match(/\[(.*(?<!\\))\]/)
+
+      data.tags = matches[1]
+        .split(/(?<!\\)\|/g)
+        .map(tag => unformatTag(tag.trim()))
+
+      line = line.substring(matches[0].length)
+    }
+
+    data.message = line.match(/.*(?= \|)/)[0]
+    if (data.message.length == 0) data.message = line
+    line = line.substring(data.message.length)
+    data.message = unformatMessage(data.message)
+
+    return data
+  })
+}
+
 const unformatTag = val => val.replace(/\\\|/g, '|').replace(/\\\]/g, ']')
 const unformatMessage = val => val.replace(/\\\|/g, '|').replace(/\\\[/g, '[')
 const unformatField = val => val.replace(/\\\|/g, '|').replace(/\\:/g, ':')
