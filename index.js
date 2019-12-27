@@ -6,19 +6,23 @@ const logger = (writer, ...initTags) => {
       ? write({ message, tags: [...initTags, fields, ...callTags], fields: {} })
       : write({ message, tags: [...initTags, ...callTags], fields })
 
-  const tag = (...additionalTags) => logger(writer, ...initTags, ...additionalTags)
+  const tag = (...additionalTags) =>
+    logger(writer, ...initTags, ...additionalTags)
 
   return Object.assign(logFn, { tag })
 }
 
-const ratlog = Object.assign((writer, ...initTags) => {
-  const write = getWriteFn(writer)
-  return logger(log => write(stringify(log)), ...initTags)
-}, { logger, stringify })
+const ratlog = Object.assign(
+  (writer, ...initTags) => {
+    const write = getWriteFn(writer)
+    return logger(log => write(stringify(log)), ...initTags)
+  },
+  { logger, stringify }
+)
 
-const getWriteFn = writer => writer.write ? writer.write.bind(writer) : writer
+const getWriteFn = writer => (writer.write ? writer.write.bind(writer) : writer)
 
-function stringify ({ tags, message, fields }) {
+function stringify({ tags, message, fields }) {
   const joinedTags = tags.map(formatTag).join('|')
   const tagString = joinedTags && `[${joinedTags}] `
 
@@ -29,8 +33,7 @@ function stringify ({ tags, message, fields }) {
       const key = formatField(k)
       const value = formatField(v)
       return ` | ${key}${value && ': ' + value}`
-    }
-    )
+    })
     .join('')
 
   return tagString + messageString + fieldString + '\n'
@@ -41,7 +44,7 @@ const formatMessage = val => toString(val).replace(/[|[]/g, '\\$&')
 const formatField = val => toString(val).replace(/[|:]/g, '\\$&')
 const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
-function toString (val) {
+function toString(val) {
   if (val == null) {
     return ''
   }
@@ -54,7 +57,9 @@ function toString (val) {
     return escapeNewLines(val.toString())
   } catch (e) {
     try {
-      return 'logger failed calling .toString(): ' + escapeNewLines(e.toString())
+      return (
+        'logger failed calling .toString(): ' + escapeNewLines(e.toString())
+      )
     } catch (e) {
       return ''
     }

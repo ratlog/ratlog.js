@@ -151,6 +151,4 @@ export type ToString = {
  * const log = ratlog(console.log)
  * ```
  */
-export type Writer<T> =
-  | { write: (data: T) => void }
-  | ((data: T) => void);
+export type Writer<T> = { write: (data: T) => void } | ((data: T) => void);

@@ -21,7 +21,6 @@ This way you can combine Ratlog's logging semantics with your logging framework 
 
 For more have a look at the **[API Documentation](https://ratlog.github.io/ratlog.js/modules/_api_d_.html).**
 
-
 ## Getting started
 
 Install the [ratlog](https://www.npmjs.com/package/ratlog) NPM package:
@@ -59,7 +58,6 @@ const critical = warn.tag('critical')
 critical('shutting down all servers')
 // => [warning|critical] shutting down all servers
 
-
 // Create a mock logger while testing
 const logHandler = jest.fn()
 const testLog = ratlog(logHandler)
@@ -69,8 +67,7 @@ expect(logHandler).toBeCalledWith('[info] hi\n')
 
 There are more **[examples](https://github.com/ratlog/ratlog.js/tree/master/examples)** to learn how you can use **tags** to provide context in your logs about different components of your system.
 
-
--------------
+---
 
 Thanks to [@wmhilton](https://github.com/wmhilton) for pointing this out:
 
@@ -84,18 +81,15 @@ warn('Warning log')
 
 ![colored log tags](https://thepracticaldev.s3.amazonaws.com/i/zfjh59l1y3ivr0pryivd.PNG)
 
-
 ## Requirements
 
 Node >= 8.0.0
-
 
 ## Development and Contributing
 
 Feel free to open an [issue](https://github.com/ratlog/ratlog.js/issues) to ask questions or give feedback and make suggestions.
 
 To contribute code, run `npm i` to setup your dev environment and before submitting a [Pull Request](https://github.com/ratlog/ratlog.js/pulls), make sure `npm t` is passing.
-
 
 ## License
 

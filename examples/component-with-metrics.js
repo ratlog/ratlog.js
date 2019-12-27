@@ -48,7 +48,7 @@ const startCounter = ({ max = 0, interval = 3000, log, done }) => {
 let globalCount = 0
 
 // Writing metrics to stderr to simulate metrics collecting
-const countMetric = (count) => {
+const countMetric = count => {
   globalCount += count
   process.stderr.write(`count = ${globalCount}\n`)
 }

@@ -1,6 +1,6 @@
 import childProcess from 'child_process'
 import path from 'path'
-import {promisify} from 'util'
+import { promisify } from 'util'
 import test from 'ava'
 
 const exec = promisify(childProcess.exec)
@@ -14,8 +14,7 @@ const examples = [
 
   {
     name: 'component',
-    out:
-`app starting
+    out: `app starting
 [counter] starting
 [counter] started
 app ready
@@ -29,8 +28,7 @@ app shutting down
 
   {
     name: 'component-with-metrics',
-    out:
-`app starting
+    out: `app starting
 [counter] starting
 [counter] started
 app ready
@@ -39,8 +37,7 @@ app ready
 [counter] stopped
 app shutting down
 `,
-    err:
-`count = 1
+    err: `count = 1
 count = 3
 `
   },
@@ -56,8 +53,7 @@ count = 3
 
   {
     name: 'json-output',
-    out:
-`{"message":"log","tags":[],"fields":{}}
+    out: `{"message":"log","tags":[],"fields":{}}
 {"message":"debugging only","tags":["debug"],"fields":{}}
 `,
     err: ''
@@ -68,17 +64,15 @@ examples.forEach(example => {
   test(example.name, async t => {
     const examplePath = path.join(examplesDir, example.name + '.js')
     const options = { env: { ...process.env, ...example.env } }
-    const {stdout, stderr} = await exec('node ' + examplePath, options)
+    const { stdout, stderr } = await exec('node ' + examplePath, options)
 
     t.is(stdout, example.out)
     t.is(stderr, example.err)
-  }
-  )
+  })
 })
 
 test('TypeScript typings', async t => {
-  const out =
-`msg
+  const out = `msg
 msg | count: 2 | path: /
 [a|b] msg
 [tag] msg
@@ -89,9 +83,8 @@ msg | count: 2 | path: /
 `
   const examplePath = path.join(examplesDir, 'typings.ts')
 
-  const {stdout, stderr} = await exec('ts-node --typeCheck ' + examplePath)
+  const { stdout, stderr } = await exec('ts-node --typeCheck ' + examplePath)
 
   t.is(stdout, out)
   t.is(stderr, '')
-}
-)
+})
