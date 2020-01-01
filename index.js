@@ -46,22 +46,42 @@ const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
 function parse(logLines) {
   return logLines.split('\n').map(line => {
-    let data = {}
+    let data = {} // Construct empty return object
 
+    line = unescapeNewlines(line)
+
+    // Parse tags (only exist if the first char is '[' )
     if (line.charAt(0) == '[') {
-      let matches = line.match(/\[(.*(?<!\\))\]/)
+      let matches = line.match(/\[(.*(?<!\\))\]/) // Get all content inside the first non-escaped brackets
 
       data.tags = matches[1]
-        .split(/(?<!\\)\|/g)
-        .map(tag => unformatTag(tag.trim()))
+        .split(/(?<!\\)\|/g) // split by unescaped pipes
+        .map(tag => unformatTag(tag.trim())) // Undo tag formatting
 
-      line = line.substring(matches[0].length)
+      line = line.substring(matches[0].length) // Cut off the tag segment
     }
 
-    data.message = line.match(/.*(?= \|)/)[0]
-    if (data.message.length == 0) data.message = line
-    line = line.substring(data.message.length)
-    data.message = unformatMessage(data.message)
+    // Parse messages
+    data.message = line.match(/.*?(?= \|)/)[0] // Match message if unescaped pipe symbol follows.
+    if (data.message.length == 0) data.message = line // If no match, message is whole line.
+    line = line.substring(data.message.length) // Cut off message segment
+    data.message = unformatMessage(data.message) // Undo message formatting.
+
+    // Parse fields
+    try {
+      if (line.length > 0)
+        data.fields = line
+          .split(/(?<!\\) \| /g)
+          .slice(1)
+          .map(t => t.trim())
+          .map(t => /(.*?)(?<!\\): (.*)/.exec(t))
+          .reduce((accum, cur) => {
+            accum[unformatField(cur[1])] = unformatField(cur[2])
+            return accum
+          }, {})
+    } catch {
+      data.message += line
+    }
 
     return data
   })
