@@ -22,7 +22,7 @@ const ratlog = Object.assign(
 
 const getWriteFn = writer => (writer.write ? writer.write.bind(writer) : writer)
 
-function stringify({ tags, message, fields }) {
+function stringify ({ tags, message, fields }) {
   const joinedTags = tags.map(formatTag).join('|')
   const tagString = joinedTags && `[${joinedTags}] `
 
@@ -44,15 +44,15 @@ const formatMessage = val => toString(val).replace(/[|[]/g, '\\$&')
 const formatField = val => toString(val).replace(/[|:]/g, '\\$&')
 const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
-function parse(logLines) {
+function parse (logLines) {
   return logLines.split('\n').map(line => {
-    let data = {} // Construct empty return object
+    const data = {} // Construct empty return object
 
     line = unescapeNewlines(line)
 
     // Parse tags (only exist if the first char is '[' )
-    if (line.charAt(0) == '[') {
-      let matches = line.match(/\[(.*(?<!\\))\]/) // Get all content inside the first non-escaped brackets
+    if (line.charAt(0) === '[') {
+      const matches = line.match(/\[(.*(?<!\\))\]/) // Get all content inside the first non-escaped brackets
 
       data.tags = matches[1]
         .split(/(?<!\\)\|/g) // split by unescaped pipes
@@ -63,13 +63,13 @@ function parse(logLines) {
 
     // Parse messages
     data.message = line.match(/.*?(?= \|)/)[0] // Match message if unescaped pipe symbol follows.
-    if (data.message.length == 0) data.message = line // If no match, message is whole line.
+    if (data.message.length === 0) data.message = line // If no match, message is whole line.
     line = line.substring(data.message.length) // Cut off message segment
     data.message = unformatMessage(data.message) // Undo message formatting.
 
     // Parse fields
     try {
-      if (line.length > 0)
+      if (line.length > 0) {
         data.fields = line
           .split(/(?<!\\) \| /g)
           .slice(1)
@@ -79,7 +79,8 @@ function parse(logLines) {
             accum[unformatField(cur[1])] = unformatField(cur[2])
             return accum
           }, {})
-    } catch {
+      }
+    } catch (err) {
       data.message += line
     }
 
@@ -90,9 +91,9 @@ function parse(logLines) {
 const unformatTag = val => val.replace(/\\\|/g, '|').replace(/\\\]/g, ']')
 const unformatMessage = val => val.replace(/\\\|/g, '|').replace(/\\\[/g, '[')
 const unformatField = val => val.replace(/\\\|/g, '|').replace(/\\:/g, ':')
-const unescapeNewlines = val => val.replace(/\\n/g, `\n`)
+const unescapeNewlines = val => val.replace(/\\n/g, '\n')
 
-function toString(val) {
+function toString (val) {
   if (val == null) {
     return ''
   }

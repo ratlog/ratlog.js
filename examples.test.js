@@ -1,7 +1,7 @@
+import test from 'ava'
 import childProcess from 'child_process'
 import path from 'path'
 import { promisify } from 'util'
-import test from 'ava'
 
 const exec = promisify(childProcess.exec)
 
@@ -64,7 +64,7 @@ examples.forEach(example => {
   test(example.name, async t => {
     const examplePath = path.join(examplesDir, example.name + '.js')
     const options = { env: { ...process.env, ...example.env } }
-    const { stdout, stderr } = await exec('node ' + examplePath, options)
+    const { stdout, stderr } = await exec(`node "${examplePath}"`, options)
 
     t.is(stdout, example.out)
     t.is(stderr, example.err)
@@ -83,7 +83,7 @@ msg | count: 2 | path: /
 `
   const examplePath = path.join(examplesDir, 'typings.ts')
 
-  const { stdout, stderr } = await exec('ts-node --typeCheck ' + examplePath)
+  const { stdout, stderr } = await exec(`ts-node --typeCheck "${examplePath}"`)
 
   t.is(stdout, out)
   t.is(stderr, '')

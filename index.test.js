@@ -11,7 +11,7 @@ const specFile = path.join(__dirname, 'spec.json')
 
 let testcases
 
-function loadTestcases(cb) {
+function loadTestcases (cb) {
   fs.readFile(specFile, 'utf8', (err, contents) => {
     if (err) return cb(err)
     testcases = JSON.parse(contents).generic
@@ -32,7 +32,7 @@ test.serial.before.cb('ensure spec.json exists', t => {
   })
 })
 
-test.serial(`testing spec.json cases correctly`, t => {
+test.serial('testing spec.json cases correctly', t => {
   t.plan(testcases.length)
 
   testcases.forEach(({ data, log }) => {
