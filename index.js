@@ -22,7 +22,7 @@ const ratlog = Object.assign(
 
 const getWriteFn = writer => (writer.write ? writer.write.bind(writer) : writer)
 
-function stringify({ tags, message, fields }) {
+function stringify ({ tags, message, fields }) {
   const joinedTags = tags.map(formatTag).join('|')
   const tagString = joinedTags && `[${joinedTags}] `
 
@@ -44,7 +44,7 @@ const formatMessage = val => toString(val).replace(/[|[]/g, '\\$&')
 const formatField = val => toString(val).replace(/[|:]/g, '\\$&')
 const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
-function parse(logLines) {
+function parse (logLines) {
   return logLines.split('\n').map(line => {
     const data = {} // Construct empty return object
 
@@ -96,7 +96,7 @@ const unformatMessage = val => val.replace(/\\\|/g, '|').replace(/\\\[/g, '[')
 const unformatField = val => val.replace(/\\\|/g, '|').replace(/\\:/g, ':')
 const unescapeNewlines = val => val.replace(/\\n/g, '\n')
 
-function toString(val) {
+function toString (val) {
   if (val == null) {
     return ''
   }

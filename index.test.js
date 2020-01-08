@@ -17,7 +17,7 @@ function loadTestcases (cb) {
     if (err) return cb(err)
     const cfg = JSON.parse(contents)
     testcases = cfg.generic
-    parserTests = cfg.parsing
+    parserTests = [...cfg.parsing, ...cfg.generic]
     cb()
   })
 }
