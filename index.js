@@ -17,12 +17,12 @@ const ratlog = Object.assign(
     const write = getWriteFn(writer)
     return logger(log => write(stringify(log)), ...initTags)
   },
-  { logger, stringify }
+  { logger, stringify, parse }
 )
 
 const getWriteFn = writer => (writer.write ? writer.write.bind(writer) : writer)
 
-function stringify ({ tags, message, fields }) {
+function stringify({ tags, message, fields }) {
   const joinedTags = tags.map(formatTag).join('|')
   const tagString = joinedTags && `[${joinedTags}] `
 
@@ -44,7 +44,7 @@ const formatMessage = val => toString(val).replace(/[|[]/g, '\\$&')
 const formatField = val => toString(val).replace(/[|:]/g, '\\$&')
 const escapeNewLines = val => val.replace(/\n/g, '\\n')
 
-function parse (logLines) {
+function parse(logLines) {
   return logLines.split('\n').map(line => {
     const data = {} // Construct empty return object
 
@@ -62,7 +62,10 @@ function parse (logLines) {
     }
 
     // Parse messages
-    data.message = line.match(/.*?(?= \|)/)[0] // Match message if unescaped pipe symbol follows.
+    data.message = line.match(/.*?(?= \|)/) // Match message if unescaped pipe symbol follows.
+    if (data.message != null && data.message[0] != null) {
+      data.message = data.message[0]
+    } else data.message = ''
     if (data.message.length === 0) data.message = line // If no match, message is whole line.
     line = line.substring(data.message.length) // Cut off message segment
     data.message = unformatMessage(data.message) // Undo message formatting.
@@ -93,7 +96,7 @@ const unformatMessage = val => val.replace(/\\\|/g, '|').replace(/\\\[/g, '[')
 const unformatField = val => val.replace(/\\\|/g, '|').replace(/\\:/g, ':')
 const unescapeNewlines = val => val.replace(/\\n/g, '\n')
 
-function toString (val) {
+function toString(val) {
   if (val == null) {
     return ''
   }

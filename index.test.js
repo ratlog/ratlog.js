@@ -1,8 +1,8 @@
-import https from 'https'
+import test from 'ava'
 import fs from 'fs'
+import https from 'https'
 import path from 'path'
 import pump from 'pump'
-import test from 'ava'
 import ratlog from './index'
 
 const testsuiteURL =
@@ -10,11 +10,14 @@ const testsuiteURL =
 const specFile = path.join(__dirname, 'spec.json')
 
 let testcases
+let parserTests
 
 function loadTestcases (cb) {
   fs.readFile(specFile, 'utf8', (err, contents) => {
     if (err) return cb(err)
-    testcases = JSON.parse(contents).generic
+    const cfg = JSON.parse(contents)
+    testcases = cfg.generic
+    parserTests = cfg.parsing
     cb()
   })
 }
@@ -32,7 +35,7 @@ test.serial.before.cb('ensure spec.json exists', t => {
   })
 })
 
-test.serial('testing spec.json cases correctly', t => {
+test.serial('testing spec.json output cases correctly', t => {
   t.plan(testcases.length)
 
   testcases.forEach(({ data, log }) => {
@@ -41,6 +44,15 @@ test.serial('testing spec.json cases correctly', t => {
     }
     const l = ratlog(write)
     l(data.message, data.fields, ...(data.tags || []))
+  })
+})
+
+test.serial('testing spec.json parsing cases', t => {
+  t.plan(parserTests.length)
+
+  parserTests.forEach(({ data, log }) => {
+    const parsed = ratlog.parse(log)[0]
+    t.deepEqual(data, parsed, 'Input: ' + log)
   })
 })
 
