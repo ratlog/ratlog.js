@@ -52,7 +52,7 @@ test.serial('testing spec.json parsing cases', t => {
 
   parserTests.forEach(({ data, log }) => {
     const parsed = ratlog.parse(log)[0]
-    t.deepEqual(data, parsed, 'Input: ' + log)
+    t.deepEqual(data, parsed, 'Case:\n\n' + JSON.stringify({ log, data }))
   })
 })
 
