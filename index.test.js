@@ -1,9 +1,9 @@
-import https from 'https'
-import fs from 'fs'
-import path from 'path'
-import pump from 'pump'
-import test from 'ava'
-import ratlog from './index'
+const https = require('https')
+const fs = require('fs')
+const path = require('path')
+const pump = require('pump')
+const test = require('ava')
+const ratlog = require('./index')
 
 const testsuiteURL = 'https://raw.githubusercontent.com/ratlog/ratlog-spec/master/ratlog.testsuite.json'
 const specFile = path.join(__dirname, 'spec.json')

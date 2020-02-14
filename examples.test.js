@@ -1,7 +1,7 @@
-import childProcess from 'child_process'
-import path from 'path'
-import {promisify} from 'util'
-import test from 'ava'
+const childProcess = require('child_process')
+const path = require('path')
+const { promisify } = require('util')
+const test = require('ava')
 
 const exec = promisify(childProcess.exec)
 
@@ -45,10 +45,10 @@ count = 3
 `
   },
 
-  { name: 'debug-tag', out: 'log\n', err: '' },
+  { name: 'debug', out: 'log\n', err: '' },
 
   {
-    name: 'debug-tag',
+    name: 'debug-only',
     out: 'log\n[debug] debugging only\n',
     err: '',
     env: { DEBUG: true }
