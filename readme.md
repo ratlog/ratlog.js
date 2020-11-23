@@ -96,6 +96,13 @@ Feel free to open an [issue](https://github.com/ratlog/ratlog.js/issues) to ask 
 
 To contribute code, run `npm i` to setup your dev environment and before submitting a [Pull Request](https://github.com/ratlog/ratlog.js/pulls), make sure `npm t` is passing.
 
+### Releasing
+
+If you have access to `npm` and want to release a version:
+
+- Update `package.json` and commit
+- `git tag` and `git push --tags`
+- Run `npm publish` locally
 
 ## License
 
