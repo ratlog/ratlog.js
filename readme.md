@@ -2,6 +2,8 @@
 
 ## Application Logging for Rats, Humans and Machines
 
+**Status: Deprecated. These days I highly recommend using modern observability tooling such as [OpenTelemetry](https://opentelemetry.io/).**
+
 [![Build Status](https://travis-ci.org/ratlog/ratlog.js.svg?branch=master)](https://travis-ci.org/ratlog/ratlog.js) [![npm](https://img.shields.io/npm/v/ratlog.svg)](https://www.npmjs.com/package/ratlog) [![GitHub last commit](https://img.shields.io/github/last-commit/ratlog/ratlog.js.svg)](https://github.com/ratlog/ratlog.js) [![GitHub issues](https://img.shields.io/github/issues/ratlog/ratlog.js.svg)](https://github.com/ratlog/ratlog.js/issues)
 
 Ratlog.js is a JavaScript logging library that supports the [Ratlog logging format](https://github.com/ratlog/ratlog-spec).
